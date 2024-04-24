@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
 
@@ -46,7 +48,7 @@ public class Race
         race.addHorse(horse2, 2);
         race.addHorse(horse3, 3);
 
-        race.startRace();
+        race.startRaceGUI();
     }
 
     /**
@@ -131,6 +133,62 @@ public class Race
         else {
             announceWinner(lane3Horse);
         }
+    }
+
+    public void startRaceGUI() {
+        JFrame frame = new JFrame("Main Race Menu");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 700);
+        frame.setResizable(false);
+
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.setLayout(new BorderLayout());
+
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new GridLayout(5, 4, 5, 5));
+
+        String[] buttonLabels = {"TRACK", "HORSES", "STATISTICS", "BETTING", "START RACE"};
+
+        for (String label : buttonLabels) {
+            JButton button = new JButton(label);
+
+            switch (label) {
+                case "TRACK" -> {
+                    button.setBackground(new Color(51, 178, 73));
+                    button.addActionListener(e -> {
+
+                    });
+                }
+                case "HORSES" -> {
+                    button.setBackground(new Color(85, 194, 218));
+                    button.addActionListener(e -> {
+
+                    });
+                }
+                case "STATISTICS" -> {
+                    button.setBackground(new Color(255, 189, 3));
+                    button.addActionListener(e -> {
+
+                    });
+                }
+                case "BETTING" -> {
+                    button.setBackground(new Color(235, 45, 58));
+                    button.addActionListener(e -> {
+
+                    });
+                }
+                case "START RACE" -> {
+                    button.addActionListener(e -> startRace());
+                }
+            }
+
+            buttonsPanel.add(button);
+        }
+
+        panel.add(buttonsPanel, BorderLayout.CENTER);
+
+        frame.getContentPane().add(panel);
+        frame.setVisible(true);
     }
 
     private void announceWinner(Horse horse) {
