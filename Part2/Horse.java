@@ -1,3 +1,5 @@
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
 
 /**
  * A class to represent Horse objects. These are to be used
@@ -11,7 +13,7 @@ public class Horse
 {
     //Fields of class Horse
     private final String horseName;
-    private char horseSymbol;
+    private String horseSymbol;
     private int horseDistance;
     private Boolean horseFallen;
     private double horseConfidence;
@@ -23,7 +25,7 @@ public class Horse
     /**
      * Constructor for objects of class Horse
      */
-    public Horse(char horseSymbol, String horseName, double horseConfidence)
+    public Horse(String horseSymbol, String horseName, double horseConfidence)
     {
         this.setConfidence(horseConfidence);
         this.setSymbol(horseSymbol);
@@ -49,6 +51,7 @@ public class Horse
     /**
      * Perform various tests
      */
+    /*
     public static void tests() {
         Horse horse = new Horse('♘', "horse", 0.5);  // Create new horse
         System.out.println("Created new horse with symbol: ♘, name: horse and confidence: 0.5\n");
@@ -96,12 +99,17 @@ public class Horse
 
         horse.printDetails();
     }
+     */
+
+    public static void testsGUI() {
+
+    }
 
     /**
      * Main method (only used for testing and may be removed)
      */
     public static void main(String[] args) {
-        tests();
+        testsGUI();
     }
     
     //Other methods of class Horse
@@ -126,7 +134,7 @@ public class Horse
         return horseName;
     }
     
-    public char getSymbol()
+    public String getSymbol()
     {
         return horseSymbol;
     }
@@ -159,9 +167,8 @@ public class Horse
         horseConfidence = newConfidence;
     }
     
-    public void setSymbol(char newSymbol)
+    public void setSymbol(String newSymbol)
     {
         horseSymbol = newSymbol;
     }
-    
 }

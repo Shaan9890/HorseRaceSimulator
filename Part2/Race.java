@@ -38,6 +38,7 @@ public class Race
     /**
      * Perform various tests
      */
+    /*
     public static void tests() {
         Race race = new Race(5);  // Create new race
 
@@ -51,6 +52,23 @@ public class Race
         race.addHorse(horse2, 2);
         race.addHorse(horse3, 3);
 
+        race.startRace();
+    }
+     */
+
+    public static void testsGUI() {
+        Race race = new Race(5);  // Create new race
+
+        // Create new horses
+        Horse horse1 = new Horse("horses/Clavelandbay(brownCoat).jpg", "Epona", 0.5);
+        Horse horse2 = new Horse("horses/Lippizaner(whiteCoat).jpg", "Torrent", 0.5);
+        Horse horse3 = new Horse("horses/Shire(blackCoat).jpg", "Ludwig", 0.9);
+
+        // Add the horses to the race
+        race.addHorse(horse1, 1);
+        race.addHorse(horse2, 2);
+        race.addHorse(horse3, 3);
+
         race.startRaceGUI();
     }
 
@@ -58,7 +76,7 @@ public class Race
      * Main method to run tests (may be removed later)
      */
     public static void main(String[] args) {
-        tests();
+        testsGUI();
     }
 
     /**
@@ -179,7 +197,8 @@ public class Race
                     });
                 }
                 case "START RACE" -> {
-                    button.addActionListener(e -> startRace());
+                    Horse horse = new Horse("♘", "Epona", 0.5);
+                    button.addActionListener(e -> printRaceGUI());
                 }
             }
 
@@ -209,16 +228,16 @@ public class Race
     }
 
     private String showLength() {
-        return "Length: " + String.valueOf(raceLength);
+        return "Length: " + raceLength;
     }
 
     private String showLanes() {
-        return "Lanes: " + String.valueOf(noOfLanes);
+        return "Lanes: " + noOfLanes;
     }
 
     private void trackGUI() {
         JFrame frame = new JFrame("Track Menu");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(600, 700);
         frame.setResizable(false);
 
@@ -356,6 +375,11 @@ public class Race
         multiplePrint('=',raceLength+3); //bottom edge of track
         System.out.println();    
     }
+
+
+    private void printRaceGUI() {
+
+    }
     private void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -400,6 +424,67 @@ public class Race
         //print the horse's details
         System.out.print(" " + theHorse.getName() + " (Current confidence: " + theHorse.getConfidence() + ")");
     }
+
+    private String createLane(Horse theHorse) {
+        String lane = "";
+        //calculate how many spaces are needed before
+        //and after the horse
+        int spacesBefore = theHorse.getDistanceTravelled();
+        int spacesAfter = raceLength - theHorse.getDistanceTravelled();
+
+        //Add a | for the beginning of the lane
+        lane += '|';
+
+        //Add the spaces before the horse
+        lane = multiConcatenate(lane, " ", spacesBefore);
+
+        //if the horse has fallen then add X
+        //else add the horse's icon
+        if(theHorse.hasFallen())
+        {
+            lane += 'X';
+        }
+        else
+        {
+            lane += theHorse.getSymbol();
+        }
+
+        //add the spaces after the horse
+        lane = multiConcatenate(lane, " ", spacesAfter);
+
+        //add the | for the end of the track
+        lane += '|';
+
+        //add the horse's details
+        lane += " " + theHorse.getName() + " (Current confidence: " + theHorse.getConfidence() + ")";
+
+        return lane;
+    }
+
+    private void printLaneGUI(Horse theHorse) {
+
+        // Create a frame called Race
+        JFrame frame = new JFrame("Race");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 700);
+        frame.setResizable(false);
+
+        // Create a new panel
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        // Create a new, un-editable text field to display the lane
+        JTextField lane = new JTextField();
+        lane.setPreferredSize(new Dimension(600, 100));
+        lane.setEditable(false);
+
+        lane.setText(createLane(theHorse));
+
+        panel.add(lane, BorderLayout.CENTER);
+
+        frame.getContentPane().add(panel);
+        frame.setVisible(true);
+    }
         
     
     /***
@@ -416,5 +501,10 @@ public class Race
             System.out.print(aChar);
             i = i + 1;
         }
+    }
+
+    private String multiConcatenate(String string, String concatenation, int times) {
+        string = string + String.valueOf(concatenation).repeat(Math.max(0, times));
+        return string;
     }
 }
