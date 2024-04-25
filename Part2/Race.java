@@ -12,10 +12,12 @@ import java.lang.Math;
  */
 public class Race
 {
-    private final int raceLength;
+    private int raceLength;
     private Horse lane1Horse;
     private Horse lane2Horse;
     private Horse lane3Horse;
+
+    private int noOfLanes;
 
     /**
      * Constructor for objects of class Race
@@ -27,6 +29,7 @@ public class Race
     {
         // initialise instance variables
         raceLength = distance;
+        noOfLanes = 3;
         lane1Horse = null;
         lane2Horse = null;
         lane3Horse = null;
@@ -141,7 +144,7 @@ public class Race
         frame.setSize(600, 700);
         frame.setResizable(false);
 
-        JPanel panel = new JPanel(new FlowLayout());
+        JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
         JPanel buttonsPanel = new JPanel();
@@ -155,9 +158,7 @@ public class Race
             switch (label) {
                 case "TRACK" -> {
                     button.setBackground(new Color(51, 178, 73));
-                    button.addActionListener(e -> {
-
-                    });
+                    button.addActionListener(e -> trackGUI());
                 }
                 case "HORSES" -> {
                     button.setBackground(new Color(85, 194, 218));
@@ -179,6 +180,102 @@ public class Race
                 }
                 case "START RACE" -> {
                     button.addActionListener(e -> startRace());
+                }
+            }
+
+            buttonsPanel.add(button);
+        }
+
+        panel.add(buttonsPanel, BorderLayout.CENTER);
+
+        frame.getContentPane().add(panel);
+        frame.setVisible(true);
+    }
+
+    private void setRaceLength(int newLength) {
+        if (newLength > 15 || newLength < 1) {
+            JOptionPane.showMessageDialog(null, "Length can only go from 1 to 15!");
+            return;
+        }
+        raceLength = newLength;
+    }
+
+    private void setNoOfLanes(int newNoOfLanes) {
+        if (newNoOfLanes > 5 || newNoOfLanes < 1) {
+            JOptionPane.showMessageDialog(null, "Number of lanes can only go from 1 to 5!");
+            return;
+        }
+        noOfLanes = newNoOfLanes;
+    }
+
+    private String showLength() {
+        return "Length: " + String.valueOf(raceLength);
+    }
+
+    private String showLanes() {
+        return "Lanes: " + String.valueOf(noOfLanes);
+    }
+
+    private void trackGUI() {
+        JFrame frame = new JFrame("Track Menu");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 700);
+        frame.setResizable(false);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        // Create text fields displaying the current distance of the track and number of lanes
+        JTextField length = new JTextField();
+        length.setPreferredSize(new Dimension(300, 50));
+        length.setEditable(false);
+        length.setHorizontalAlignment(JTextField.RIGHT);
+        panel.add(length, BorderLayout.NORTH);
+        length.setText(showLength());
+
+        JTextField lanes = new JTextField();
+        lanes.setPreferredSize(new Dimension(300, 50));
+        lanes.setEditable(false);
+        lanes.setHorizontalAlignment(JTextField.RIGHT);
+        panel.add(lanes, BorderLayout.PAGE_END);
+        lanes.setText(showLanes());
+
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new GridLayout(5, 4, 5, 5));
+
+        String[] buttonLabels = {"INCREASE LENGTH", "DECREASE LENGTH", "ADD LANE", "REMOVE LANE"};
+
+        for (String label : buttonLabels) {
+            JButton button = new JButton(label);
+
+            switch (label) {
+                case "INCREASE LENGTH" -> {
+                    button.setBackground(new Color(51, 178, 73));
+                    button.addActionListener(e -> {
+                        setRaceLength(raceLength + 1);
+                        length.setText(showLength());
+                    });
+                }
+                case "DECREASE LENGTH" -> {
+                    button.setBackground(new Color(85, 194, 218));
+                    button.addActionListener(e -> {
+                        setRaceLength(raceLength - 1);
+                        length.setText(showLength());
+                    });
+                }
+                case "ADD LANE" -> {
+                    button.setBackground(new Color(255, 189, 3));
+                    button.addActionListener(e -> {
+                        setNoOfLanes(noOfLanes + 1);
+                        lanes.setText(showLanes());
+                    });
+                }
+                case "REMOVE LANE" -> {
+                    button.setBackground(new Color(235, 45, 58));
+                    button.addActionListener(e -> {
+                        setNoOfLanes(noOfLanes - 1);
+                        lanes.setText(showLanes());
+                    });
                 }
             }
 
