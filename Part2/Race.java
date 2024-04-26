@@ -453,7 +453,7 @@ public class Race
         // Create new label to announce the winner
         JLabel winMessage = new JLabel();
         winMessage.setPreferredSize(new Dimension(300, 1));
-        panel.add(bottom, BorderLayout.SOUTH);
+        panel.add(winMessage, BorderLayout.SOUTH);
 
         frame.getContentPane().add(panel);
         frame.setVisible(true);
