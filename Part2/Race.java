@@ -485,7 +485,6 @@ public class Race
                     if (horse != null) {
                         horses++;
                         if (raceWonBy(horse)) {
-                            System.out.println("Won");
                             finished = true;
                             winner = horse;
                             result = announceWinner(winner);
@@ -497,7 +496,6 @@ public class Race
                 }
 
                 if (horses == fallenHorses) {
-                    System.out.println("Tie");
                     finished = true;
                     result = "No winner";
                 }
