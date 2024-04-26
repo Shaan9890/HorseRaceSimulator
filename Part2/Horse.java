@@ -150,6 +150,7 @@ public class Horse
     
     public void goBackToStart()
     {
+        horseFallen = false;
         horseDistance = 0;
     }
     
