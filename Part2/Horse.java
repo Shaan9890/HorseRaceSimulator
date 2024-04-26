@@ -1,13 +1,10 @@
-import java.awt.*;
-import java.awt.geom.Ellipse2D;
-
 /**
  * A class to represent Horse objects. These are to be used
  * with the Race class to represent the horses within the
  * race.
  * 
  * @author Shaan Shah
- * @version 1.3
+ * @version 2.6
  */
 public class Horse
 {
@@ -18,107 +15,21 @@ public class Horse
     private Boolean horseFallen;
     private double horseConfidence;
     private int horseLane;
-    
-      
-    //Constructor of class Horse
+    private int horseWins;
+
+
     /**
      * Constructor for objects of class Horse
      */
-    Horse(String horseSymbol, String horseName, double horseConfidence)
-    {
-        this.setConfidence(horseConfidence);
-        this.setSymbol(horseSymbol);
-        this.horseName = horseName;
-
-        this.horseFallen = false;
-        this.horseDistance = 0;
-    }
-
     Horse () {
         this.setConfidence(0.5);
         this.setSymbol("");
         this.setName("");
         this.horseFallen = false;
         this.horseDistance = 0;
+        this.horseWins = 0;
     }
 
-    /**
-     * Print all details of the horse
-     */
-    public void printDetails() {
-        System.out.println("Horse details\n");
-        System.out.println("Name: " + this.getName());
-        System.out.println("Symbol: " + this.getSymbol());
-        System.out.println("Fallen: " + this.hasFallen());
-        System.out.println("Confidence: " + this.getConfidence());
-        System.out.println("Distance: " + this.getDistanceTravelled());
-        System.out.println("\n");
-    }
-
-    /**
-     * Perform various tests
-     */
-    /*
-    public static void tests() {
-        Horse horse = new Horse('♘', "horse", 0.5);  // Create new horse
-        System.out.println("Created new horse with symbol: ♘, name: horse and confidence: 0.5\n");
-
-        horse.printDetails();
-
-        // Change horse details
-        horse.setConfidence(0.7);
-        horse.setSymbol('♞');
-        horse.moveForward();
-        System.out.println("Horse confidence changed to 0.7, symbol changed to ♞ and moved forward by 1\n");
-
-        horse.printDetails();
-
-        // Fall
-        horse.fall();
-        System.out.println("Horse has fallen\n");
-
-        horse.printDetails();
-
-        // Go back to start
-        horse.goBackToStart();
-        System.out.println("Horse has moved back to the start\n");
-
-        horse.printDetails();
-
-        // Attempt to enter invalid data
-        horse.setConfidence(-1);
-        System.out.println("Attempted to set confidence to -1\n");
-
-        horse.printDetails();
-
-        horse.setConfidence(1);
-        System.out.println("Attempted to set confidence to 1\n");
-
-        horse.printDetails();
-
-        horse.setConfidence(0);
-        System.out.println("Attempted to set confidence to 0\n");
-
-        horse.printDetails();
-
-        horse.setConfidence(2);
-        System.out.println("Attempted to set confidence to 2\n");
-
-        horse.printDetails();
-    }
-     */
-
-    public static void testsGUI() {
-
-    }
-
-    /**
-     * Main method (only used for testing and may be removed)
-     */
-    public static void main(String[] args) {
-        testsGUI();
-    }
-    
     //Other methods of class Horse
     public void fall()
     {
@@ -147,6 +58,8 @@ public class Horse
     }
 
     public int getLane() { return horseLane; }
+
+    public int getWins() { return horseWins; }
     
     public void goBackToStart()
     {
@@ -185,4 +98,6 @@ public class Horse
     public void setName(String newName) { horseName = newName; }
 
     public void setLane(int newLane) { horseLane = newLane; }
+
+    public void increaseWins() { horseWins += 1;}
 }

@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  * for a given distance
  * 
  * @author McFarewell
- * @version 2.6
+ * @version 2.8
  */
 public class Race
 {
@@ -31,20 +31,13 @@ public class Race
         }
     }
 
-    public static void testsGUI() {
+    public static void main(String[] args) {
         Race race = new Race();  // Create new race
 
-        race.startRaceGUI();
+        race.mainMenuGUI();
     }
 
-    /**
-     * Main method to run tests (may be removed later)
-     */
-    public static void main(String[] args) {
-        testsGUI();
-    }
-
-    public void startRaceGUI() {
+    public void mainMenuGUI() {
         JFrame frame = new JFrame("Main Race Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 700);
@@ -72,17 +65,13 @@ public class Race
                 }
                 case "STATISTICS" -> {
                     button.setBackground(new Color(255, 189, 3));
-                    button.addActionListener(e -> {
-
-                    });
+                    button.addActionListener(e -> statisticsGUI());
                 }
                 case "BETTING" -> {
                     button.setBackground(new Color(235, 45, 58));
-                    button.addActionListener(e -> {
-
-                    });
+                    button.addActionListener(e -> bettingGUI());
                 }
-                case "START RACE" -> button.addActionListener(e -> printRaceGUI());
+                case "START RACE" -> button.addActionListener(e -> startRaceGUI());
             }
 
             buttonsPanel.add(button);
@@ -94,11 +83,60 @@ public class Race
         frame.setVisible(true);
     }
 
+    private void bettingGUI() {
+        JFrame frame = new JFrame("Betting Menu");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(600, 700);
+        frame.setResizable(false);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3, 1));
+
+        String[] labels = {"Betting tips:", "In low length races, higher confidence horses are more likely to win",
+                "In higher length races, higher confidence horses are more likely to fall before they reach the end."};
+
+        for (String text : labels) {
+            JLabel label = new JLabel();
+            label.setText(text);
+            panel.add(label);
+        }
+
+        frame.getContentPane().add(panel);
+        frame.setVisible(true);
+    }
+
+    private void statisticsGUI() {
+        JFrame frame = new JFrame("Statistics Menu");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(600, 700);
+        frame.setResizable(false);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(5, 1));
+
+        for (Horse horse : horses) {
+            if (horse != null) {
+                JLabel label = new JLabel();
+                String name = horse.getName();
+                if (name.isEmpty()) {
+                    name = "Horse";
+                }
+                label.setText(name + " Wins: " + horse.getWins());
+                panel.add(label);
+            }
+        }
+
+        frame.getContentPane().add(panel);
+        frame.setVisible(true);
+    }
+
     private Boolean addHorseToLane(Horse theHorse, String laneText) {
         int laneNumber = Integer.parseInt(laneText);
         for (Horse eachHorse : horses) {
             if (eachHorse.getLane() == laneNumber) {
-                return false;
+                if (!(eachHorse.equals(theHorse))) {
+                    return false;
+                }
             }
         }
         theHorse.setLane(laneNumber);
@@ -314,6 +352,7 @@ public class Race
 
     private String announceWinner(Horse horse) {
         horse.setConfidence(horse.getConfidence() + 0.1);
+        horse.increaseWins();
         return "And the winner is " + horse.getName();
     }
         
@@ -351,7 +390,7 @@ public class Race
         }
     }
 
-    private void printRaceGUI() {
+    private void startRaceGUI() {
         // Create a frame called Race
         JFrame frame = new JFrame("Race");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
