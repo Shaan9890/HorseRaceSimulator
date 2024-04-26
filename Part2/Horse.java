@@ -12,25 +12,32 @@ import java.awt.geom.Ellipse2D;
 public class Horse
 {
     //Fields of class Horse
-    private final String horseName;
+    private String horseName;
     private String horseSymbol;
     private int horseDistance;
     private Boolean horseFallen;
     private double horseConfidence;
-
-    
+    private int horseLane;
     
       
     //Constructor of class Horse
     /**
      * Constructor for objects of class Horse
      */
-    public Horse(String horseSymbol, String horseName, double horseConfidence)
+    Horse(String horseSymbol, String horseName, double horseConfidence)
     {
         this.setConfidence(horseConfidence);
         this.setSymbol(horseSymbol);
         this.horseName = horseName;
 
+        this.horseFallen = false;
+        this.horseDistance = 0;
+    }
+
+    Horse () {
+        this.setConfidence(0.5);
+        this.setSymbol("");
+        this.setName("");
         this.horseFallen = false;
         this.horseDistance = 0;
     }
@@ -138,6 +145,8 @@ public class Horse
     {
         return horseSymbol;
     }
+
+    public int getLane() { return horseLane; }
     
     public void goBackToStart()
     {
@@ -171,4 +180,8 @@ public class Horse
     {
         horseSymbol = newSymbol;
     }
+
+    public void setName(String newName) { horseName = newName; }
+
+    public void setLane(int newLane) { horseLane = newLane; }
 }
