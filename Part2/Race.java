@@ -98,6 +98,7 @@ public class Race
         for (String text : labels) {
             JLabel label = new JLabel();
             label.setText(text);
+            label.setFont(new Font("Verdana", Font.BOLD, 18));
             panel.add(label);
         }
 
@@ -122,6 +123,7 @@ public class Race
                     name = "Horse";
                 }
                 label.setText(name + " Wins: " + horse.getWins());
+                label.setFont(new Font("Verdana", Font.BOLD, 18));
                 panel.add(label);
             }
         }
@@ -319,14 +321,14 @@ public class Race
                     });
                 }
                 case "DECREASE LENGTH" -> {
-                    button.setBackground(new Color(85, 194, 218));
+                    button.setBackground(new Color(235, 45, 58));
                     button.addActionListener(e -> {
                         setRaceLength(raceLength - 1);
                         length.setText(showLength());
                     });
                 }
                 case "ADD LANE" -> {
-                    button.setBackground(new Color(255, 189, 3));
+                    button.setBackground(new Color(51, 178, 73));
                     button.addActionListener(e -> {
                         setNoOfLanes(noOfLanes + 1);
                         lanes.setText(showLanes());
