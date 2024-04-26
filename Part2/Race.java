@@ -126,7 +126,7 @@ public class Race
         settingsPanel.add(name);
 
         JLabel symbolLabel = new JLabel();
-        symbolLabel.setText("Symbol");
+        symbolLabel.setText("Symbol (1 character)");
         JTextField symbol = new JTextField();
         symbol.setText(theHorse.getSymbol());
         settingsPanel.add(symbolLabel);
@@ -164,13 +164,18 @@ public class Race
                 JOptionPane.showMessageDialog(frame, "Fields should not be left empty.");
             }
             else {
-                if (addHorseToLane(theHorse, lane.getText())) {
-                    theHorse.setName(name.getText());
-                    theHorse.setSymbol(symbol.getText());
-                    JOptionPane.showMessageDialog(frame, "Horse settings updated.");
+                if (symbol.getText().length() != 1) {
+                    JOptionPane.showMessageDialog(frame, "Only use one character for the symbol.");
                 }
                 else {
-                    JOptionPane.showMessageDialog(frame, "A horse already belongs to this lane!");
+                    if (addHorseToLane(theHorse, lane.getText())) {
+                        theHorse.setName(name.getText());
+                        theHorse.setSymbol(symbol.getText());
+                        JOptionPane.showMessageDialog(frame, "Horse settings updated.");
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(frame, "A horse already belongs to this lane!");
+                    }
                 }
             }
         });
