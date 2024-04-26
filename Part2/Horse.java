@@ -174,7 +174,7 @@ public class Horse
             this.horseConfidence = 0.9;  // Sets an upper limit of 0.9 confidence
             return;
         }
-        horseConfidence = newConfidence;
+        horseConfidence = (Math.round(10.0 * newConfidence)) / 10.0;  // Math.round prevents floating point rounding issues.
     }
     
     public void setSymbol(String newSymbol)

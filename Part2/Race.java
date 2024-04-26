@@ -256,7 +256,7 @@ public class Race
         lanes.setPreferredSize(new Dimension(300, 50));
         lanes.setEditable(false);
         lanes.setHorizontalAlignment(JTextField.RIGHT);
-        panel.add(lanes, BorderLayout.PAGE_END);
+        panel.add(lanes, BorderLayout.SOUTH);
         lanes.setText(showLanes());
 
         JPanel buttonsPanel = new JPanel();
@@ -308,6 +308,7 @@ public class Race
     }
 
     private String announceWinner(Horse horse) {
+        horse.setConfidence(horse.getConfidence() + 0.1);
         return "And the winner is " + horse.getName();
     }
         
@@ -321,54 +322,6 @@ public class Race
     {
         return theHorse.getDistanceTravelled() == raceLength;
     }
-
-        /*
-    public void startRace()
-    {
-        //declare a local variable to tell us when the race is finished
-        boolean finished = false;
-
-        //reset all the lanes (all horses not fallen and back to 0).
-        lane1Horse.goBackToStart();
-        lane2Horse.goBackToStart();
-        lane3Horse.goBackToStart();
-
-        while (!finished)
-        {
-            //move each horse
-            moveHorse(lane1Horse);
-            moveHorse(lane2Horse);
-            moveHorse(lane3Horse);
-
-            //print the race positions
-            printRace();
-
-            //if any of the three horses has won the race is finished
-            if ( raceWonBy(lane1Horse) || raceWonBy(lane2Horse) || raceWonBy(lane3Horse) )
-            {
-                finished = true;
-            }
-
-            //wait for 100 milliseconds
-            try{
-                TimeUnit.MILLISECONDS.sleep(100);
-            }catch(InterruptedException e){
-                Thread.currentThread().interrupt();
-            }
-        }
-
-        if (raceWonBy(lane1Horse)) {
-            announceWinner(lane1Horse);
-        }
-        else if (raceWonBy(lane2Horse)) {
-            announceWinner(lane2Horse);
-        }
-        else {
-            announceWinner(lane3Horse);
-        }
-    }
-
-     */
 
     private void moveHorse(Horse theHorse)
     {
